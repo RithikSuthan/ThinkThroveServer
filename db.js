@@ -11,7 +11,7 @@ const registerValidation = require("./MiddleWare/SignUp.js")
 const loginValidation = require("./MiddleWare/SignIn.js")
 app.use (express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(cors({origin:"https://thinktrove-seven.vercel.app"}))
+app.use(cors({origin:"https://think-trove.vercel.app"}))
 
 connectionDb();
 app.post("/",loginValidation ,async (req,res)=>{
