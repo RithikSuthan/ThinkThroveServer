@@ -237,6 +237,27 @@ app.patch("/deleteCard", async (req, res) => {
     }
 });
 
+app.patch('/updateCard', async (req, res) => {
+  const { cardId, cardName, hint, ans } = req.body;
+  try {
+      const updateFields = {};
+      if (cardName) updateFields.cardName = cardName;
+      if (hint) updateFields.hint = hint;
+      if (ans) updateFields.ans = ans;
+
+      const updatedCard = await card_collection.findByIdAndUpdate(
+          cardId,
+          { $set: updateFields },
+          { new: true }
+      );
+
+      res.json({ status: "cardUpdated", card: updatedCard });
+  } catch (e) {
+      console.log(e);
+      res.status(500).send("Server error");
+  }
+});
+
 // Start the server
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on port ${PORT}`);
