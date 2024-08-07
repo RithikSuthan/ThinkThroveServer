@@ -251,7 +251,8 @@ app.patch("/deleteCard",  async (req, res) => {
   }
 });
 
-app.listen(5001,()=>
+app.listen(PORT,'0.0.0.0',()=>
 {
     console.log("port connected")
 })
+
