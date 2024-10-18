@@ -10,13 +10,29 @@ const registerValidation = require("./MiddleWare/SignUp.js");
 const loginValidation = require("./MiddleWare/SignIn.js");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
+const allowedOrigins = [
+    "https://think-trove.vercel.app",  // Your deployed frontend
+    "http://localhost:3000",           // Local frontend development
+    "capacitor://localhost"            // Capacitor mobile app
+  ];
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ origin: "https://think-trove.vercel.app" }));
+// app.use(cors({ origin: "https://think-trove.vercel.app" }));
+
+app.use(cors({
+    origin: function (origin, callback) {
+      // Check if the incoming origin is allowed
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    }
+  }));
 
 // Connect to the database
 connectionDb();

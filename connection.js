@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const connectionDb = async () => {
     try {
-        await mongoose.connect(process.env.MONGO_URI);
+        await mongoose.connect("mongodb+srv://Rithik_Suthan_S:8098329762@cluster0.nwyrzl2.mongodb.net/ThinkThrove");
         console.log("Database connected");
     }
     catch (error)
